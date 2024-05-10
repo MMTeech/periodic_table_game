@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>periodic table</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flexboxgrid/6.3.1/flexboxgrid.min.css">
+    <link rel="preconnect" href="//fdn.fontcdn.ir">
+    <link rel="preconnect" href="//v1.fontapi.ir">
+    <link href="https://v1.fontapi.ir/css/Shabnam" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+        integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <div class="conainer">
+        <h1 class="center"> شبه فلز </h1>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 col-xs-4 col-xs-offset-1 col-md-offset-1 question">
+                (B) بور
+            </div><!-- column A -->
+            <div class="col-md-4 col-xs-4 col-xs-offset-1 col-md-offset-2 answer">
+                (5, 10.81)
+            </div><!-- column B -->
+        </div>
+
+        <div class="row">
+            <div class="col-md-4 col-xs-4 col-xs-offset-1 col-md-offset-1 question">
+                (Si) سیلیسیم
+            </div><!-- column A -->
+            <div class="col-md-4 col-xs-4 col-xs-offset-1 col-md-offset-2 answer">
+                (14, 28.09)
+            </div><!-- column B -->
+        </div>
+
+        <div class="row">
+            <div class="col-md-4 col-xs-4 col-xs-offset-1 col-md-offset-1 question">
+                (As) آرسنیک
+            </div><!-- column A -->
+            <div class="col-md-4 col-xs-4 col-xs-offset-1 col-md-offset-2 answer">
+                (33, 74.92)
+            </div><!-- column B -->
+        </div>
+
+        <div class="row">
+            <div class="col-md-4 col-xs-4 col-xs-offset-1 col-md-offset-1 question">
+                (Sb) آنتیموان
+            </div><!-- column A -->
+            <div class="col-md-4 col-xs-4 col-xs-offset-1 col-md-offset-2 answer">
+                (51, 121.76)
+            </div><!-- column B -->
+        </div>
+
+        <div class="row">
+            <div class="col-md-4 col-xs-4 col-xs-offset-1 col-md-offset-1 question">
+                (Te) تلوریوم
+            </div><!-- column A -->
+            <div class="col-md-4 col-xs-4 col-xs-offset-1 col-md-offset-2 answer">
+                (52, 127.60)
+            </div><!-- column B -->
+        </div>
+
+        <div class="row">
+            <div class="col-md-2 col-xs-4 col-xs-offset-8 col-md-offset-9 icons">
+                <a title="  خانه  " href="index.html">
+                    <img src="img/home.png" alt="">
+                </a>
+                <a title=" بعدی " href="06.Nonmetals.html">
+                    <img src="img/next.png" alt="">
+                </a>
+            </div>
+        </div>
+    </div><!-- container -->
+
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const pairs = [
+                { question: "(B) بور", answer: "(5, 10.81)" },
+                { question: "(Si) سیلیسیم", answer: "(14, 28.09)" },
+                { question: "(As) آرسنیک", answer: "(33, 74.92)" },
+                { question: "(Sb) آنتیموان", answer: "(51, 121.76)" },
+                { question: "(Te) تلوریوم", answer: "(52, 127.60)" }
+            ];
+
+            const questions = document.querySelectorAll('.question');
+            const answers = document.querySelectorAll('.answer');
+            let selectedQuestion = null;
+
+            // Shuffle the array of answers
+            const shuffledPairs = shuffleArray(pairs);
+
+            // Display shuffled answers
+            shuffledPairs.forEach(function (pair, index) {
+                answers[index].textContent = pair.answer;
+            });
+
+            questions.forEach(function (question) {
+                question.addEventListener('click', function () {
+                    // Remove previous selection if any
+                    if (selectedQuestion) {
+                        selectedQuestion.classList.remove('selected');
+                    }
+
+                    // Mark the clicked question as selected
+                    this.classList.add('selected');
+                    selectedQuestion = this;
+                });
+            });
+
+            answers.forEach(function (answer) {
+                answer.addEventListener('click', function () {
+                    // If a question is selected
+                    if (selectedQuestion) {
+                        const questionText = selectedQuestion.textContent.trim();
+                        const answerText = this.textContent.trim();
+                        const correctAnswer = pairs.find(pair => pair.question === questionText).answer;
+
+                        // Check if the selected answer matches the correct answer
+                        if (answerText === correctAnswer) {
+                            selectedQuestion.classList.add('green');
+                            this.classList.add('green');
+                        } else {
+                            selectedQuestion.classList.add('red');
+                            this.classList.add('red');
+                        }
+
+                        // Remove selection from the question
+                        selectedQuestion.classList.remove('selected');
+                        selectedQuestion = null;
+                    }
+                });
+            });
+
+            // Function to shuffle array
+            function shuffleArray(array) {
+                let currentIndex = array.length, temporaryValue, randomIndex;
+
+                while (currentIndex !== 0) {
+                    randomIndex = Math.floor(Math.random() * currentIndex);
+                    currentIndex -= 1;
+
+                    temporaryValue = array[currentIndex];
+                    array[currentIndex] = array[randomIndex];
+                    array[randomIndex] = temporaryValue;
+                }
+
+                return array;
+            }
+        });
+    </script>
+
+</body>
+
+</html>
+
+</html>
